@@ -19,4 +19,11 @@ void monitor_write_hex(u32int n);
 
 void monitor_write_dec(u32int n);
 
+#define PANIC(x) do { \
+    monitor_write("PANIC: "); \
+    monitor_write(x);         \
+    monitor_write("!\n");     \
+    for(;;);                  \
+} while (0)
+
 #endif // MONITOR_H
