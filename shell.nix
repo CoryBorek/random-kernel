@@ -3,5 +3,6 @@ mkShell {
   buildInputs = [ 
       bochs
       qemu
+      lazygit
     ];
 }

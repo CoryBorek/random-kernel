@@ -2,3 +2,6 @@
 **/*.o
 src/kernel
 **/*.iso
+src/initrd.img
+src/make_initrd
+src/test*.txt
