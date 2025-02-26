@@ -1,13 +1,7 @@
-//
-// descriptor_tables.c - Initialises the GDT and IDT, and defines the 
-//                       default ISR and IRQ handler.
-//                       Based on code from Bran's kernel development tutorials.
-//                       Rewritten for JamesM's kernel development tutorials.
-//
-
-#include "common.h"
-#include "descriptor_tables.h"
-#include "isr.h"
+#include <common.h>
+#include <descriptor_tables.h>
+#include <isr.h>
+#include <kheap.h>
 
 // Lets us access our ASM functions from our C code.
 extern void gdt_flush(uint32_t);

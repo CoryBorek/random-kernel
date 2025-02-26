@@ -2,18 +2,20 @@
 //           Made for JamesM's tutorials <www.jamesmolloy.co.uk>
 
 #include <stdint.h>
-#include "monitor.h"
-#include "descriptor_tables.h"
-#include "timer.h"
-#include "paging.h"
-#include "multiboot.h"
-#include "fs.h"
-#include "initrd.h"
-#include "task.h"
-#include "syscall.h"
+#include <monitor.h>
+#include <descriptor_tables.h>
+#include <timer.h>
+#include <paging.h>
+#include <multiboot.h>
+#include <fs.h>
+#include <initrd.h>
+#include <task.h>
+#include <syscall.h>
 
 extern uint32_t placement_address;
 uint32_t initial_esp;
+
+extern void (switch_to_user_mode)(void);
 
 int kernel_main(multiboot_info_t *mboot_ptr, uint32_t initial_stack)
 {

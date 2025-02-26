@@ -1,10 +1,6 @@
-// kheap.c -- Kernel heap functions, also provides
-//            a placement malloc() for use before the heap is 
-//            initialised.
-//            Written for JamesM's kernel development tutorials.
-
-#include "kheap.h"
-#include "paging.h"
+#include <stddef.h>
+#include <kheap.h>
+#include <paging.h>
 
 // end is defined in the linker script.
 extern uint32_t end;
@@ -12,7 +8,7 @@ uint32_t placement_address = (uint32_t)&end;
 extern page_directory_t *kernel_directory;
 heap_t *kheap=0;
 
-uint32_t kmalloc_int(uint32_t sz, int align, uint32_t *phys)
+uint32_t kmalloc_int(size_t sz, int align, uint32_t *phys)
 {
     if (kheap != 0)
     {
@@ -47,22 +43,22 @@ void kfree(void *p)
     free(p, kheap);
 }
 
-uint32_t kmalloc_a(uint32_t sz)
+uint32_t kmalloc_a(size_t sz)
 {
     return kmalloc_int(sz, 1, 0);
 }
 
-uint32_t kmalloc_p(uint32_t sz, uint32_t *phys)
+uint32_t kmalloc_p(size_t sz, uint32_t *phys)
 {
     return kmalloc_int(sz, 0, phys);
 }
 
-uint32_t kmalloc_ap(uint32_t sz, uint32_t *phys)
+uint32_t kmalloc_ap(size_t sz, uint32_t *phys)
 {
     return kmalloc_int(sz, 1, phys);
 }
 
-uint32_t kmalloc(uint32_t sz)
+uint32_t kmalloc(size_t sz)
 {
     return kmalloc_int(sz, 0, 0);
 }

@@ -10,11 +10,11 @@ struct initrd_header
    unsigned int length; // Length of the file.
 };
 
-int main(char argc, char **argv)
+int main(int argc, char * argv[])
 {
    int nheaders = (argc-1)/2;
    struct initrd_header headers[64];
-   printf("size of header: %d\n", sizeof(struct initrd_header));
+   printf("size of header: %ld\n", sizeof(struct initrd_header));
    unsigned int off = sizeof(struct initrd_header) * 64 + sizeof(int);
    int i;
    for(i = 0; i < nheaders; i++)
@@ -44,7 +44,8 @@ int main(char argc, char **argv)
    {
      FILE *stream = fopen(argv[i*2+1], "r");
      unsigned char *buf = (unsigned char *)malloc(headers[i].length);
-     fread(buf, 1, headers[i].length, stream);
+     int status = fread(buf, 1, headers[i].length, stream);
+     printf("status: %d\n", status);
      fwrite(buf, 1, headers[i].length, wstream);
      fclose(stream);
      free(buf);

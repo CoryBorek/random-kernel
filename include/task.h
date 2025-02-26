@@ -1,13 +1,8 @@
-// 
-// task.h - Defines the structures and prototypes needed to multitask.
-//          Written for JamesM's kernel development tutorials.
-//
-
 #ifndef TASK_H
 #define TASK_H
 #include <stdint.h>
-#include "common.h"
-#include "paging.h"
+#include <common.h>
+#include <paging.h>
 
 #define KERNEL_STACK_SIZE 2048       // Use a 2kb kernel stack.
 

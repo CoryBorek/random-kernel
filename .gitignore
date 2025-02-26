@@ -1,7 +1,8 @@
 *~
 **/*.o
-src/kernel
+kernel
 **/*.iso
-src/initrd.img
-src/make_initrd
-src/test*.txt
+initrd.img
+make_initrd
+test*.txt
+obj/

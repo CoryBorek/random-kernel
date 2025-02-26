@@ -1,11 +1,8 @@
-// monitor.h -- Defines the interface for monitor.h
-// From JamesM's kernel development tutorials.
-
 #ifndef MONITOR_H
 #define MONITOR_H
 
 #include <stdint.h>
-#include "common.h"
+#include <common.h>
 
 // Write a single character out to the screen.
 void monitor_put(char c);

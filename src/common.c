@@ -1,7 +1,5 @@
-// common.c -- Defines some global functions.
-//             From JamesM's kernel development tutorials.
-
-#include "common.h"
+#include <common.h>
+#include <monitor.h>
 
 // Write a byte out to the specified port.
 void outb(uint16_t port, uint8_t value)
@@ -69,6 +67,7 @@ char *strcpy(char *dest, const char *src)
       *dest++ = *src++;
     }
     while (*src != 0);
+    return dest;
 }
 
 // Concatenate the NULL-terminated string src onto

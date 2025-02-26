@@ -1,10 +1,6 @@
-// 
-// task.c - Implements the functionality needed to multitask.
-//          Written for JamesM's kernel development tutorials.
-//
 #include <stdint.h>
-#include "task.h"
-#include "paging.h"
+#include <task.h>
+#include <paging.h>
 
 extern void perform_task_switch(uint32_t, uint32_t, uint32_t, uint32_t);
 

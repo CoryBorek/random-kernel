@@ -1,8 +1,8 @@
-#include "monitor.h"
+#include <monitor.h>
 #include <stdint.h>
 uint16_t cursor_x, cursor_y;
 
-uint16_t * video_memory = 0xB8000;
+uint16_t * video_memory = (uint16_t*)0xB8000;
 
 // Updates the hardware cursor.
 static void move_cursor()

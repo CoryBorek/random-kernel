@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-docker build buildenv/$1 -t myos-buildenv
