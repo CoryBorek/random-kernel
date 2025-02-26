@@ -3,16 +3,25 @@
 #include <isr.h>
 
 #include <monitor.h>
+#include <fs.h>
+#include <task.h>
+#include <elf.h>
 
 static void syscall_handler(registers_t *regs);
 
-static void *syscalls[3] =
+static void *syscalls[9] =
 {
    &monitor_write,
    &monitor_write_hex,
    &monitor_write_dec,
+   &monitor_put,
+   &fork,
+   &getpid,
+   &read_fs,
+   &finddir_fs,
+   &readdir_fs
 };
-uint32_t num_syscalls = 3;
+uint32_t num_syscalls = 9;
 
 void initialise_syscalls()
 {
@@ -53,3 +62,11 @@ void syscall_handler(registers_t *regs)
 DEFN_SYSCALL1(monitor_write, 0, const char*);
 DEFN_SYSCALL1(monitor_write_hex, 1, const char*);
 DEFN_SYSCALL1(monitor_write_dec, 2, const char*);
+DEFN_SYSCALL1(monitor_put, 3, char);
+
+DEFN_SYSCALL0(fork, 4)
+DEFN_SYSCALL0(getpid, 5)
+
+DEFN_SYSCALL4(read_fs, 6, fs_node_t* , uint32_t, uint32_t, uint8_t*)
+DEFN_SYSCALL2(finddir_fs, 7, fs_node_t*, char)
+DEFN_SYSCALL2(readdir_fs, 8, fs_node_t*, uint32_t)

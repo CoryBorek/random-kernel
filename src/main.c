@@ -45,11 +45,52 @@ int kernel_main(multiboot_info_t *mboot_ptr, uint32_t initial_stack)
     // Initialise the initial ramdisk, and set it as the filesystem root.
     fs_root = initialise_initrd(initrd_location);
 
-    initialise_syscalls();
+       // Create a new process in a new address space which is a clone of this.
+   int ret = fork();
 
+   monitor_write("fork() returned ");
+   monitor_write_hex(ret);
+   monitor_write(", and getpid() returned ");
+   monitor_write_hex(getpid());
+   monitor_write("\n============================================================================\n");
+
+   // The next section of code is not reentrant so make sure we aren't interrupted during.
+   asm volatile("cli");
+   // list the contents of /
+   int i = 0;
+   struct dirent *node = 0;
+
+   char buf[512];
+
+   while ( (node = readdir_fs(fs_root, i)) != 0)
+   {
+       monitor_write("Found file ");
+       monitor_write(node->name);
+       monitor_write("\n");
+       fs_node_t *fsnode = finddir_fs(fs_root, node->name);
+       if (strcmp(node->name, "test.elf") == 0) {
+        monitor_write("flags: ");
+        monitor_write_hex(fsnode->flags);
+        monitor_write("\n");
+        uint32_t sz = read_fs(fsnode, 0, 512, buf);
+        monitor_write("size: ");
+        monitor_write_dec(sz);
+        monitor_write("\n");
+       }
+       i++;
+   }
+
+   asm volatile("sti");
+
+    initialise_syscalls();
     switch_to_user_mode();
 
-    syscall_monitor_write("Hello, user world!\n");
+    int test = execfile(buf);
+   syscall_monitor_write("test: ");
+   syscall_monitor_write_dec(test);
+   syscall_monitor_write("\n");
 
+   syscall_monitor_write("Hello user world!\n");
+   
     return 0;
 }

@@ -7,7 +7,7 @@ let
   target = "i686-elf";
 in
 pkgs.stdenv.mkDerivation {
-  name = "osdev-toolchain";
+  name = "osdev-cross";
   version = "1.0";
   srcs = [
     ( pkgs.fetchurl {

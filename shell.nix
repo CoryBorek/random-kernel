@@ -1,6 +1,6 @@
 with import <nixpkgs> {};
 let
-  osdev-toolchain = callPackage ./tools/osdev-toolchain.nix {};
+  osdev-cross = callPackage ./tools/osdev-cross.nix {};
 in
 mkShell {
   buildInputs = [ 
@@ -15,6 +15,6 @@ mkShell {
       valgrind
       gdb
       parted
-      osdev-toolchain
+      osdev-cross
     ];
 }

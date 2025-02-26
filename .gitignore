@@ -6,3 +6,4 @@ initrd.img
 make_initrd
 test*.txt
 obj/
+test.elf

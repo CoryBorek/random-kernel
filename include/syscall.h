@@ -2,6 +2,7 @@
 #define SYSCALL_H
 
 #include <common.h>
+#include <fs.h>
 
 void initialise_syscalls();
 
@@ -60,8 +61,17 @@ int syscall_##fn(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5) \
   return a; \
 }
 
+
 DECL_SYSCALL1(monitor_write, const char*)
 DECL_SYSCALL1(monitor_write_hex, const char*)
 DECL_SYSCALL1(monitor_write_dec, const char*)
+DECL_SYSCALL1(monitor_put, char)
+
+DECL_SYSCALL0(fork)
+DECL_SYSCALL0(getpid)
+
+DECL_SYSCALL4(read_fs, fs_node_t* , uint32_t, uint32_t, uint8_t*)
+DECL_SYSCALL2(finddir_fs, fs_node_t*, char)
+DECL_SYSCALL2(readdir_fs, fs_node_t*, uint32_t)
 
 #endif
