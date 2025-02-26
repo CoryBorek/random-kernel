@@ -1,6 +1,7 @@
 // main.c -- Defines the C-code kernel entry point, calls initialisation routines.
 //           Made for JamesM's tutorials <www.jamesmolloy.co.uk>
 
+#include <stdint.h>
 #include "monitor.h"
 #include "descriptor_tables.h"
 #include "timer.h"
@@ -11,10 +12,10 @@
 #include "task.h"
 #include "syscall.h"
 
-extern u32int placement_address;
-u32int initial_esp;
+extern uint32_t placement_address;
+uint32_t initial_esp;
 
-int kernel_main(multiboot_info_t *mboot_ptr, u32int initial_stack)
+int kernel_main(multiboot_info_t *mboot_ptr, uint32_t initial_stack)
 {
     initial_esp = initial_stack;
     // Initialise all the ISRs and segmentation
@@ -28,8 +29,8 @@ int kernel_main(multiboot_info_t *mboot_ptr, u32int initial_stack)
 
     // Find the location of our initial ramdisk.
     ASSERT(mboot_ptr->mods_count > 0);
-    u32int initrd_location = *((u32int*)mboot_ptr->mods_addr);
-    u32int initrd_end = *(u32int*)(mboot_ptr->mods_addr+4);
+    uint32_t initrd_location = *((uint32_t*)mboot_ptr->mods_addr);
+    uint32_t initrd_end = *(uint32_t*)(mboot_ptr->mods_addr+4);
     // Don't trample our module with placement accesses, please!
     placement_address = initrd_end;
 

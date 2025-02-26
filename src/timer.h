@@ -3,9 +3,9 @@
 
 #ifndef TIMER_H
 #define TIMER_H
-
+#include <stdint.h>
 #include "common.h"
 
-void init_timer(u32int frequency);
+void init_timer(uint32_t frequency);
 
 #endif
