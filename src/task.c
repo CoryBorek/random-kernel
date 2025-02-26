@@ -6,6 +6,8 @@
 #include "task.h"
 #include "paging.h"
 
+extern void perform_task_switch(u32int, u32int, u32int, u32int);
+
 // The currently running task.
 volatile task_t *current_task;
 
@@ -140,26 +142,7 @@ void switch_task()
 
     // Change our kernel stack over.
     set_kernel_stack(current_task->kernel_stack+KERNEL_STACK_SIZE);
-    // Here we:
-    // * Stop interrupts so we don't get interrupted.
-    // * Temporarily put the new EIP location in ECX.
-    // * Load the stack and base pointers from the new task struct.
-    // * Change page directory to the physical address (physicalAddr) of the new directory.
-    // * Put a dummy value (0x12345) in EAX so that above we can recognise that we've just
-    //   switched task.
-    // * Restart interrupts. The STI instruction has a delay - it doesn't take effect until after
-    //   the next instruction.
-    // * Jump to the location in ECX (remember we put the new EIP in there).
-    asm volatile("         \
-      cli;                 \
-      mov %0, %%ecx;       \
-      mov %1, %%esp;       \
-      mov %2, %%ebp;       \
-      mov %3, %%cr3;       \
-      mov $0x12345, %%eax; \
-      sti;                 \
-      jmp *%%ecx           "
-                 : : "r"(eip), "r"(esp), "r"(ebp), "r"(current_directory->physicalAddr));
+    perform_task_switch(eip, current_directory->physicalAddr, ebp, esp);
 }
 
 int fork()
