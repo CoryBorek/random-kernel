@@ -59,11 +59,14 @@ pkgs.stdenv.mkDerivation {
     --prefix="$out" \
     --disable-nls \
     --enable-languages=c,c++ \
-    --without-headers
+    --without-headers \
+    --disable-hosted-libstdcxx
     make -j$(nproc) all-gcc
     make -j$(nproc) all-target-libgcc
+    make -j$(nproc) all-target-libstdc++-v3
     make install-gcc
     make install-target-libgcc
+    make install-target-libstdc++-v3
     
     cd ..
     mkdir -p $out/${target}/lib
