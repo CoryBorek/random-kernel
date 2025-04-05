@@ -26,7 +26,4 @@ DECL_SYSCALL4(read_fs, fs_node_t* , uint32_t, uint32_t, uint8_t*)
 DECL_SYSCALL2(finddir_fs, fs_node_t*, char)
 DECL_SYSCALL2(readdir_fs, fs_node_t*, uint32_t)
 
-DECL_SYSCALL0(disable_interrupts)
-DECL_SYSCALL0(enable_interrupts)
-
 #endif

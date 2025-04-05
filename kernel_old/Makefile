@@ -30,9 +30,9 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
-kernel/ordered_array.o \
 kernel/fs.o \
 kernel/initrd.o \
+kernel/elf.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \

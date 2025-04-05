@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <kernel/multiboot.h>
 
-void init_arch(multiboot_info_t *mboot_ptr, uint32_t initial_stack);
+void init_systems(multiboot_info_t *mboot_ptr, uint32_t initial_stack);
 
 #define PANIC(msg) panic(msg, __FILE__, __LINE__);
 #define ASSERT(b) ((b) ? (void)0 : panic_assert(__FILE__, __LINE__, #b))

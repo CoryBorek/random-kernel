@@ -6,7 +6,7 @@
 
 #include <kernel/fs.h>
 #include "task.h"
-#include <kernel/defs.h>
+#include <kernel/elf.h>
 
 
 #define DEFN_SYSCALL0(fn, num) \
@@ -77,7 +77,7 @@ void monitor_put(char c) {
     printf("%c", c);
 }
 
-static void *syscalls[11] =
+static void *syscalls[9] =
 {
    &monitor_write,
    &monitor_write_hex,
@@ -87,9 +87,7 @@ static void *syscalls[11] =
    &getpid,
    &read_fs,
    &finddir_fs,
-   &readdir_fs,
-   &disable_interrupts,
-   &enable_interrupts
+   &readdir_fs
 };
 uint32_t num_syscalls = 9;
 
@@ -140,6 +138,3 @@ DEFN_SYSCALL0(getpid, 5)
 DEFN_SYSCALL4(read_fs, 6, fs_node_t* , uint32_t, uint32_t, uint8_t*)
 DEFN_SYSCALL2(finddir_fs, 7, fs_node_t*, char)
 DEFN_SYSCALL2(readdir_fs, 8, fs_node_t*, uint32_t)
-
-DEFN_SYSCALL0(disable_interrupts, 9)
-DEFN_SYSCALL0(enable_interrupts, 10)

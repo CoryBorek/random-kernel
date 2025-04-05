@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#include <kernel/ordered_array.h>
+#include "ordered_array.h"
 
 #define KHEAP_START         0xC0000000
 #define KHEAP_INITIAL_SIZE  0x100000
@@ -54,5 +54,44 @@ void *alloc(uint32_t size, uint8_t page_align, heap_t *heap);
    Releases a block allocated with 'alloc'.
 **/
 void free(void *p, heap_t *heap);
+
+/**
+   Allocate a chunk of memory, sz in size. If align == 1,
+   the chunk must be page-aligned. If phys != 0, the physical
+   location of the allocated chunk will be stored into phys.
+
+   This is the internal version of kmalloc. More user-friendly
+   parameter representations are available in kmalloc, kmalloc_a,
+   kmalloc_ap, kmalloc_p.
+**/
+uint32_t kmalloc_int(size_t sz, int align, uint32_t *phys);
+
+/**
+   Allocate a chunk of memory, sz in size. The chunk must be
+   page aligned.
+**/
+uint32_t kmalloc_a(size_t sz);
+
+/**
+   Allocate a chunk of memory, sz in size. The physical address
+   is returned in phys. Phys MUST be a valid pointer to uint32_t!
+**/
+uint32_t kmalloc_p(size_t sz, uint32_t *phys);
+
+/**
+   Allocate a chunk of memory, sz in size. The physical address 
+   is returned in phys. It must be page-aligned.
+**/
+uint32_t kmalloc_ap(size_t sz, uint32_t *phys);
+
+/**
+   General allocation function.
+**/
+uint32_t kmalloc(size_t sz);
+
+/**
+   General deallocation function.
+**/
+void kfree(void *p);
 
 #endif // KHEAP_H

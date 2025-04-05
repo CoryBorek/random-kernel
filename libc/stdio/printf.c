@@ -81,6 +81,28 @@ int printf(const char* restrict format, ...) {
 				}
 				written++;
 			}
+		}  else if (*format == 'd') {
+			format++;
+			int n = va_arg(parameters, int);
+			char noZeroes = 1;
+			int o = n;
+			char data[32];
+			int i = 0;
+			if (n == 0) {
+				data[i] = 0;
+				i++;
+			}
+			while (o != 0) {
+				int tmp = o % 10;
+				o /= 10;
+				data[i] = tmp;
+				i++;
+			}
+			while (i > 0) {
+				i--;
+				putchar(data[i]+'0');
+				written++;
+			}
 		} else {
 			format = format_begun_at;
 			size_t len = strlen(format);

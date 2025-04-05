@@ -40,6 +40,12 @@ typedef struct page_directory
 } page_directory_t;
 
 /**
+   Sets up the environment, page directories etc and
+   enables paging.
+**/
+void initialise_paging();
+
+/**
    Causes the specified page directory to be loaded into the
    CR3 register.
 **/

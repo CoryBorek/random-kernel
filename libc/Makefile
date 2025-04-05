@@ -1,4 +1,4 @@
-DEFAULT_HOST!=../default-host.sh
+DEFAULT_HOST!=../scripts/default-host.sh
 HOST?=DEFAULT_HOST
 HOSTARCH!=../scripts/target-triplet-to-arch.sh $(HOST)
 

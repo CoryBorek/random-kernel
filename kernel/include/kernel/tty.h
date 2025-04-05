@@ -3,9 +3,9 @@
 
 #include <stddef.h>
 
-void terminal_initialize(void);
-void terminal_putchar(char c);
-void terminal_write(const char* data, size_t size);
-void terminal_writestring(const char* data);
+void console_init(void);
+void console_putchar(char c);
+void console_write(const char* data, size_t size);
+void console_writestring(const char* data);
 
 #endif
